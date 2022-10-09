@@ -3,20 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - projectiles
+  - TowerCollider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Projectile
+  - Tower
+  - TowerGrab
+  - TowerDrop
+  - Shop
   - 
   - 
   - 
