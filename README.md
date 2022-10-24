@@ -6,7 +6,7 @@
                 D-->|Float|E(Timer)
                 D-->|Prefab|F(Items)
                         F -->|Class|G(Stats)
-                            G-->|give|H([Tower])
+                            G-->|give|H{{Tower}}
                         F-->|place|H(Tower)
                         F -->|Int|I(Cost)
                             I-->|less|J{Buy}
