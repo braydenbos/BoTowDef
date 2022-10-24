@@ -38,6 +38,7 @@ public class EnemyMove : MonoBehaviour
         }
         else
         {
+            GameObject.Find("Healthbox").GetComponent<PlayerHealth>().Hit();
             Destroy(gameObject);
         }
     }
