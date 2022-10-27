@@ -11,22 +11,25 @@ public class cameraController : MonoBehaviour
     new Camera camera;
     public Vector2 scrollMinMax;
     public float scrollSpeed;
+    public Shop Shop;
+    public float times;
     private void Start()
     {
         camera = GetComponent<Camera>();
     }
     void Update()
     {
-        ScrollInBounds();
+        float calc = (1-(Shop.movementTimer - Shop.timer) / Shop.movementTimer) * times * camera.orthographicSize;
+        ScrollInBounds(calc);
         float mS = Input.mouseScrollDelta.y * Time.deltaTime * scrollSpeed;
         if (mS != 0 && camera.orthographicSize - mS > scrollMinMax.x && camera.orthographicSize - mS < scrollMinMax.y)
         {
             camera.orthographicSize -= mS;
         }
         MaxMinpos.x = 11 - camera.orthographicSize * 1.9f;
-        MaxMinpos.y = 6 - camera.orthographicSize;
+        MaxMinpos.y = 10 - camera.orthographicSize;
         MaxMinpos.z = -11 + camera.orthographicSize * 1.9f;
-        MaxMinpos.w = -6 + camera.orthographicSize;
+        MaxMinpos.w = -6 + camera.orthographicSize - calc;
 
         if (Input.GetMouseButtonDown(2))
         {
@@ -53,7 +56,7 @@ public class cameraController : MonoBehaviour
         }
         return new Vector3(x, y, -10);
     }
-    public void ScrollInBounds()
+    public void ScrollInBounds(float calc)
     {
         if(transform.position.x > 11 - camera.orthographicSize * 1.9f)
         {
@@ -63,13 +66,13 @@ public class cameraController : MonoBehaviour
         {
             transform.position += new Vector3(-11 + camera.orthographicSize * 1.9f - transform.position.x, 0, 0);
         }
-        if ( transform.position.y > 6 - camera.orthographicSize)
+        if ( transform.position.y > 10 - camera.orthographicSize)
         {
-            transform.position += new Vector3(0, 6 - camera.orthographicSize - transform.position.y, 0);
+            transform.position += new Vector3(0, 10 - camera.orthographicSize - transform.position.y, 0);
         }
-        else if (transform.position.y < -6 + camera.orthographicSize)
+        else if (transform.position.y < -6 + camera.orthographicSize - calc)
         {
-            transform.position += new Vector3(0, -6 + camera.orthographicSize - transform.position.y, 0);
+            transform.position += new Vector3(0, -6 + camera.orthographicSize - calc - transform.position.y, 0);
         }
     }
 }

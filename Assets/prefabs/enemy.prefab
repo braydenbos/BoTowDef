@@ -135,10 +135,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: {fileID: 1003538809461893287, guid: b5df7c345bfdfe74f9d4d49fb09a6ccc, type: 3}
+  at: 0
   movementSpeed: 0
-  maxhealthpoints: 0
+  healthpoints: 0
   path: 0
   earn: 0
+  timer: 0
+  Enemy: {fileID: 4041433389865873525, guid: 3f283b9fd24560d4c8ed592f434a7cc1, type: 3}
+  babys: []
 --- !u!212 &4041433389865873521
 SpriteRenderer:
   m_ObjectHideFlags: 0

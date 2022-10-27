@@ -17,10 +17,19 @@ public class Projectile : MonoBehaviour
     private Vector3 curpos;
     private Vector3 lastpos;
     private float lifetime;
+    private bool PartaclesOrTrail;
 
     public Vector3 UDir { get; private set; }
     private void Start()
     {
+        if(PartaclesOrTrail && GetComponent<TrailRenderer>() != null)
+        {
+            Destroy(GetComponent<TrailRenderer>());
+        }
+        else if(GetComponent<ParticleSystem>() != null)
+        {
+            Destroy(GetComponent<ParticleSystem>());
+        }
         trigger.radius = radius;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,9 +48,9 @@ public class Projectile : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<EnemyMove>())
+        if (collision.gameObject.GetComponent<EnemyMove>() && collision.gameObject != null)
         {
-            collision.gameObject.GetComponent<EnemyMove>().Damage( damage);
+            collision.gameObject.GetComponent<EnemyMove>().Damage(damage);
         }
         splashed = true;
     }
@@ -88,7 +97,7 @@ public class Projectile : MonoBehaviour
         }
         Destroy(gameObject);
     }
-    public void Setup(Vector3 uDir, float Speed, int Damage, float Radius, int SplashDam, float Lifetime)
+    public void Setup(Vector3 uDir, float Speed, int Damage, float Radius, int SplashDam, float Lifetime,bool projectiletrail)
     {
         UDir = uDir.normalized;
         speed = Speed;
@@ -97,8 +106,9 @@ public class Projectile : MonoBehaviour
         splashDamage = SplashDam;
         lifetime = Lifetime;
         smarttrack = false;
+        PartaclesOrTrail = projectiletrail;
     }
-    public void SetupST(GameObject Tracked, float Speed, int Damage, float Radius, int SplashDam, float Lifetime)
+    public void SetupST(GameObject Tracked, float Speed, int Damage, float Radius, int SplashDam, float Lifetime,bool projectiletrail)
     {
         target = Tracked;
         speed = Speed;
@@ -107,5 +117,6 @@ public class Projectile : MonoBehaviour
         splashDamage = SplashDam;
         lifetime = Lifetime;
         smarttrack = true;
+        PartaclesOrTrail = projectiletrail;
     }
 }

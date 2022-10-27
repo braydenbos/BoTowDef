@@ -48,6 +48,7 @@ public class dragAndDrop : MonoBehaviour
             Destroy(GetComponent<dragAndDrop>());
             parent.GetComponent<Towers>().TowerUpdate();
             GetComponent<CircleCollider2D>().isTrigger = false;
+            parent.GetComponent<CircleCollider2D>().enabled = true;
             gameObject.layer++;
         }
     }

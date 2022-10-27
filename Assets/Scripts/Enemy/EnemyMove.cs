@@ -10,14 +10,16 @@ public class EnemyMove : MonoBehaviour
     private Transform cordP;
     private int at;
     public float movementSpeed;
-    public int maxhealthpoints;
-    private int healthpoints;
+    private int maxhealthpoints;
+    public int healthpoints;
     public int path;
     public int earn;
     private Shop shop;
     private Vector3 curpos;
     private Vector3 lastpos;
+    public float timer;
     public Vector3 UDir => (curpos - lastpos).normalized;
+    public List<WaveSystem.Enemys> babys = new();
     private void Start()
     {
         healthpoints = maxhealthpoints;
@@ -28,18 +30,26 @@ public class EnemyMove : MonoBehaviour
     {
         lastpos = curpos;
         curpos = transform.position;
-        if (transform.position != cords[at].position)
+        if(timer <= 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, cords[at].position, movementSpeed * Time.deltaTime);
-        }
-        else if(cords.Count > at + 1)
-        {
-            at++;
+            timer = 0;
+            if (transform.position != cords[at].position)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, cords[at].position, movementSpeed * Time.deltaTime);
+            }
+            else if (cords.Count > at + 1)
+            {
+                at++;
+            }
+            else
+            {
+                GameObject.Find("Healthbox").GetComponent<PlayerHealth>().Hit();
+                Destroy(gameObject);
+            }
         }
         else
         {
-            GameObject.Find("Healthbox").GetComponent<PlayerHealth>().Hit();
-            Destroy(gameObject);
+            timer -= Time.deltaTime;
         }
     }
     public void FindPath()
@@ -71,9 +81,33 @@ public class EnemyMove : MonoBehaviour
             gold.GetComponent<TextMeshProUGUI>().text = "+" + earn + " Gold";
             gold.GetComponent<TextMeshProUGUI>().color = Color.yellow;
             Destroy(gold, 1);
-
+            if (babys.Count > 0)
+            {
+                for(int i = 0; i < babys.Count; i++)
+                {
+                    GameObject enemy = Instantiate(gameObject);
+                    enemy.transform.position = transform.position;
+                    enemy.GetComponent<EnemyMove>().CopyStats(babys[i].movementSpeed, babys[i].maxhealthpoints, babys[i].earn, null, path,i);
+                }
+            }
             Destroy(gameObject);
         }
+    }
+    public void CopyStats(float speed, int maxHp, int earns, WaveSystem.Enemys[] enemys, int pad,int time)
+    {
+        movementSpeed = speed;
+        maxhealthpoints = maxHp;
+        earn = earns;
+        path = pad;
+        timer = time;
+        if (enemys != null)
+        {
+            for (int i = 0; i < enemys.Length; i++)
+            {
+                babys.Add(enemys[i]);
+            }
+        }
+        FindPath();
     }
 
 }

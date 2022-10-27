@@ -6,8 +6,8 @@ using TMPro;
 public class Shop : MonoBehaviour
 {
     public float movementTimer;
-    private float timer;
-    private bool opened;
+    public float timer;
+    public bool opened;
     public TextMeshProUGUI coins;
     public int gold;
     // Update is called once per frame
@@ -19,7 +19,7 @@ public class Shop : MonoBehaviour
     {
         float scale = Camera.main.orthographicSize;
         transform.localScale = new Vector3(scale * (3.55f+0.01f/3), scale/3*2,1);
-        transform.localPosition = new Vector3(0,(-scale/3*2)-(movementTimer-timer)/movementTimer* scale, 10);
+        transform.localPosition = new Vector3(0,(-scale/10*9)-(movementTimer-timer)/movementTimer* scale, 10);
         if (opened && timer < movementTimer)
         {
             timer += Time.deltaTime;

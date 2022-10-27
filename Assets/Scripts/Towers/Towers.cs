@@ -25,6 +25,9 @@ public class Towers : MonoBehaviour
     //projectile
     public GameObject projectile;
     private Transform projectileParent;
+    //_projectileTrail
+    public bool PartaclesOrTrail;
+
     private void Start()
     {
         projectileParent = GameObject.Find("projectileParent").transform;
@@ -61,7 +64,7 @@ public class Towers : MonoBehaviour
             {
                 var Pro = Instantiate(projectile, projectileParent);
                 Pro.transform.position = transform.position;
-                Pro.GetComponent<Projectile>().SetupST(enemies[0], proSpeed, damage, radius, splashDamage, proLifeTime);
+                Pro.GetComponent<Projectile>().SetupST(enemies[0], proSpeed, damage, radius, splashDamage, proLifeTime, PartaclesOrTrail);
                 reloadTimer = 0;
             }
             else
@@ -74,7 +77,7 @@ public class Towers : MonoBehaviour
     {
         var Pro = Instantiate(projectile, projectileParent);
         Pro.transform.position = transform.position;
-        Pro.GetComponent<Projectile>().Setup(predictionDir, proSpeed, damage, radius, splashDamage, proLifeTime);
+        Pro.GetComponent<Projectile>().Setup(predictionDir, proSpeed, damage, radius, splashDamage, proLifeTime, PartaclesOrTrail);
         reloadTimer = 0;
     }
     public void LookAt(Vector3 predictionDir)

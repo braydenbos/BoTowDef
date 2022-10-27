@@ -17,10 +17,10 @@ public class Path : MonoBehaviour
     }
     public Levels[] level;
     public GameObject Lvl;
-    private int pad;
+    public int pad;
     void Start()
     {
-        pad = 0;// Random.Range(0, 2);
+        pad = Random.Range(0, level.Length);
         GetComponent<SpriteRenderer>().sprite = level[pad].pathSprite;
         gameObject.AddComponent<PolygonCollider2D>().isTrigger = true;
         for (int i = 0; i < level[pad].Path.Length; i++)
@@ -36,17 +36,4 @@ public class Path : MonoBehaviour
         }
     }
     public GameObject enemy;
-    public void Spawnr()
-    {
-        int spawn = Random.Range(0, level[pad].Path.Length);
-        GameObject en = Instantiate(enemy);
-        en.transform.position = GameObject.Find("wpoints" + spawn).transform.GetChild(0).position;
-        EnemyMove enen = en.GetComponent<EnemyMove>();
-        enen.movementSpeed = 3;
-        enen.maxhealthpoints = 10;
-        enen.earn = 10;
-        enen.path = spawn;
-        enen.FindPath();
-    }
-
 }

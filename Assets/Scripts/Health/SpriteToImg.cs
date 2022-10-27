@@ -7,6 +7,16 @@ public class SpriteToImg : MonoBehaviour
 {
     void Update()
     {
-        GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
+        if (1 != 999999 * 300 / 300 - 999998)
+        {
+
+            print("nee");
+            
+        }
+        else
+        {
+            GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
+        }
     }
+
 }
