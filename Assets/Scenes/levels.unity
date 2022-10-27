@@ -1364,9 +1364,9 @@ RectTransform:
   - {fileID: 392228659}
   - {fileID: 498822215}
   - {fileID: 867409633}
-  - {fileID: 1110537053}
   - {fileID: 748526692}
   - {fileID: 1877993564}
+  - {fileID: 1110537053}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2951,7 +2951,7 @@ RectTransform:
   - {fileID: 1001699089}
   - {fileID: 1868102244}
   m_Father: {fileID: 410730179}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3943,7 +3943,7 @@ RectTransform:
   m_Children:
   - {fileID: 1346331838}
   m_Father: {fileID: 410730179}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7217,7 +7217,7 @@ RectTransform:
   m_Children:
   - {fileID: 416769829}
   m_Father: {fileID: 410730179}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -7420,7 +7420,7 @@ MonoBehaviour:
   scrollMinMax: {x: 3, y: 5}
   scrollSpeed: 10
   Shop: {fileID: 2132768392}
-  times: 0.65
+  times: 0.5
 --- !u!1 &1987302336
 GameObject:
   m_ObjectHideFlags: 0

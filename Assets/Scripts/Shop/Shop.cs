@@ -19,7 +19,7 @@ public class Shop : MonoBehaviour
     {
         float scale = Camera.main.orthographicSize;
         transform.localScale = new Vector3(scale * (3.55f+0.01f/3), scale/3*2,1);
-        transform.localPosition = new Vector3(0,(-scale/10*9)-(movementTimer-timer)/movementTimer* scale, 10);
+        transform.localPosition = new Vector3(0,(-scale/10*9)-(movementTimer-timer)/movementTimer*scale, 10);
         if (opened && timer < movementTimer)
         {
             timer += Time.deltaTime;
