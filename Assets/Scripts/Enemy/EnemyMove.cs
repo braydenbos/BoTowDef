@@ -8,7 +8,7 @@ public class EnemyMove : MonoBehaviour
     readonly List<Transform> cords = new();
     public GameObject hp;
     private Transform cordP;
-    private int at;
+    public int at;
     public float movementSpeed;
     private int maxhealthpoints;
     public int healthpoints;
@@ -23,6 +23,7 @@ public class EnemyMove : MonoBehaviour
     private void Start()
     {
         healthpoints = maxhealthpoints;
+        Damage(0);
         shop = GameObject.Find("Shop").GetComponent<Shop>();
         curpos = transform.position;
     }
@@ -69,10 +70,10 @@ public class EnemyMove : MonoBehaviour
             amount.transform.position = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x + 2 + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)));
             amount.GetComponent<TextMeshProUGUI>().text = "-" + hit + " hp";
             Destroy(amount, 1);
-            Transform bar = transform.GetChild(0).GetChild(0);
-            bar.localScale = new Vector3(0.97f*healthpoints/maxhealthpoints, 0.88f,0);
-            bar.localPosition = new Vector3(0.97f * bar.localScale.x/2 - 0.97f / 2, 0, 0);
         }
+        Transform bar = transform.GetChild(0).GetChild(0);
+        bar.localScale = new Vector3(0.97f * healthpoints / maxhealthpoints, 0.88f, 0);
+        bar.localPosition = new Vector3(bar.localScale.x / 2 - 0.97f / 2, 0, 0);
         if (healthpoints <= 0)
         {
             shop.updateGold(earn);
@@ -88,6 +89,7 @@ public class EnemyMove : MonoBehaviour
                     GameObject enemy = Instantiate(gameObject);
                     enemy.transform.position = transform.position;
                     enemy.GetComponent<EnemyMove>().CopyStats(babys[i].movementSpeed, babys[i].maxhealthpoints, babys[i].earn, null, path,i);
+                    enemy.GetComponent<EnemyMove>().at = at;
                 }
             }
             Destroy(gameObject);
@@ -100,6 +102,7 @@ public class EnemyMove : MonoBehaviour
         earn = earns;
         path = pad;
         timer = time;
+        babys.Clear();
         if (enemys != null)
         {
             for (int i = 0; i < enemys.Length; i++)
