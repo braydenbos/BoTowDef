@@ -66,7 +66,7 @@ public class EnemyMove : MonoBehaviour
         if (hit > 0)
         {
             healthpoints -= hit;
-            GameObject amount = Instantiate(hp, GameObject.Find("Canvas").transform);
+            GameObject amount = Instantiate(hp, GameObject.Find("Hp/Gold").transform);
             amount.transform.position = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x + 2 + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)));
             amount.GetComponent<TextMeshProUGUI>().text = "-" + hit + " hp";
             Destroy(amount, 1);
@@ -77,7 +77,7 @@ public class EnemyMove : MonoBehaviour
         if (healthpoints <= 0)
         {
             shop.updateGold(earn);
-            GameObject gold = Instantiate(hp, GameObject.Find("Canvas").transform);
+            GameObject gold = Instantiate(hp, GameObject.Find("Hp/Gold").transform);
             gold.transform.position = Camera.main.WorldToScreenPoint(new Vector2(transform.position.x + 2 + Random.Range(-0.5f, 0.5f), transform.position.y + Random.Range(-0.5f, 0.5f)));
             gold.GetComponent<TextMeshProUGUI>().text = "+" + earn + " Gold";
             gold.GetComponent<TextMeshProUGUI>().color = Color.yellow;

@@ -39,7 +39,7 @@ public class Path : MonoBehaviour
         }
         for(int i = 0; i < level[pad].starts.Length; i++)
         {
-            make(level[pad].starts[i], "start", new Color(255,255,0));
+            make(new Vector3(level[pad].starts[i].x, level[pad].starts[i].y, level[pad].starts[i].z+180), "start", new Color(255,255,0));
         }
         for (int i = 0; i < level[pad].ends.Length; i++)
         {
@@ -53,6 +53,7 @@ public class Path : MonoBehaviour
         start.AddComponent<SpriteRenderer>();
         start.GetComponent<SpriteRenderer>().sprite = arrow;
         start.GetComponent<SpriteRenderer>().sortingOrder = 3;
+        start.transform.parent = GameObject.Find("map").transform;
         start.transform.Rotate(0, 0, StartOrEnd.z+90);
         start.transform.position = new Vector3(StartOrEnd.x, StartOrEnd.y, 0);
         start.transform.localScale = new Vector3(0.15f, 0.15f, 0);

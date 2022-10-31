@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
@@ -9,11 +10,11 @@ public class Buttons : MonoBehaviour
     private float timer;
     public void Restart()
     {
-
+        SceneManager.LoadScene("levels");
     }
     public void Quit()
     {
-
+        Application.Quit();
     }
     public void Update()
     {

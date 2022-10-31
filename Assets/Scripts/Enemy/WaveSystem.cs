@@ -31,31 +31,69 @@ public class WaveSystem : MonoBehaviour
         }
         public Waves[] waves;
     }
-    
+    public Transform enemyparent;
     public Enemys[] enemys;
     public Paths[] paths;
-    private int wave = -1;
-    private int currentwave = -1;
+    private int wave;
+    private int currentwave;
     public Path Path;
     public GameObject enemy;
+    public float earn;
+    public Transform earntext;
+    public Shop shop;
+    public GameObject X;
+    private void Start()
+    {
+        X.SetActive(false);
+        wave = -1;
+        currentwave = -1;
+        earntext.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.yellow;
+    }
     public void Spawnr()
     {
-        wave++;
-        transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Wave: "+ (wave+1);
+        int i = (int)Mathf.Round(earn);
+        if (i > 0)
+        {
+            shop.updateGold(i);
+        }
+        if (wave+1 < paths[Path.pad].waves.Length)
+        {
+            wave++;
+            transform.parent.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Wave: " + (wave + 1);
+        }
     }
     void Update()
     {
-        if (wave > currentwave && wave <= paths[Path.pad].waves.Length)
+        print(paths[Path.pad].waves.Length);
+        print(wave);
+        if (wave > currentwave)
         {
             for(int i = 0; i < paths[Path.pad].waves[wave].enemies.Length; i++)
             {
                 GameObject enemi = Instantiate(enemy);
+                enemi.transform.parent = enemyparent;
                 enemi.transform.position = Path.level[Path.pad].Path[paths[Path.pad].waves[wave].enemies[i].Path].waypoints[0];
                 Enemys enemystats = enemys[paths[Path.pad].waves[wave].enemies[i].Enemy];
                 enemi.GetComponent<SpriteRenderer>().sprite = enemystats.Sprite;
                 enemi.GetComponent<EnemyMove>().CopyStats(enemystats.movementSpeed, enemystats.maxhealthpoints, enemystats.earn, enemystats.enemys, paths[Path.pad].waves[wave].enemies[i].Path,i);
             }
             currentwave = wave;
+            earn = 400;
+        }
+        if(wave + 1 == paths[Path.pad].waves.Length)
+        {
+            X.SetActive(true);
+            if (enemyparent.childCount == 0)
+            {
+                print("victory");
+            }
+        }
+        if(earn > 0)
+        {
+            earn-=Time.deltaTime*10;
+            int i = (int)Mathf.Round(earn);
+            earntext.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Press next wave to earn";
+            earntext.GetChild(1).GetComponent<TextMeshProUGUI>().text = i + System.Environment.NewLine + " gold";
         }
     }
 }
